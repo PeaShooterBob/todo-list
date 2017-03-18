@@ -23,6 +23,10 @@ class ProjectsController < ApplicationController
         format.html { redirect_to project_path(@project),
                       :notice => 'Project was successfully created.' }
       else
+        error_messages = @project.errors.full_messages.reduce('') do |full_message, error|
+          full_message = error + "\n"
+        end
+        flash[:error] = error_messages
         format.html { render :action => 'new' }
       end
     end

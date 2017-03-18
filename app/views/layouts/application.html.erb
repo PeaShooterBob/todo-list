@@ -19,7 +19,12 @@
     </header>
 
     <div id="main">
-      <p id="notice"><%= notice %></p>
+      <% if flash[:notice] %>
+        <p id="notice" class="alert alert-success"><%= flash[:notice] %></p>
+      <% end %>
+      <% if flash[:error] %>
+        <p id="error" class="alert alert-danger"><%= flash[:error] %></p>
+      <% end %>
       <%= yield %>
     </div>
 
