@@ -7,7 +7,6 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
 mark {
   background-color:#ff9;
   color:#000;
-  font-style:italic;
   font-weight:bold;
 }
 
@@ -23,15 +22,6 @@ p, h2, h3, h4, h5, h6 {
   margin-bottom: 18px;
 }
 /* end reset */
-
-/* font stacks */
-body {
-    font-family: Baskerville, 'Times New Roman', Times, serif;
-}
-h1, h2, h3, h4, h5 {
-  font-family: Georgia, Times, 'Times New Roman', serif;
-}
-/* end font stacks */
 
 body {
   width: 900px;

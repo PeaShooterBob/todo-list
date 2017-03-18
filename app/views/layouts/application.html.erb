@@ -5,18 +5,16 @@
     <!--[if lt IE 9]>
     <script src="http://html5.shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <title>Todo App</title>
+    <title>Tada! Todo List</title>
     <%= stylesheet_link_tag    "application", media: "all" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <header>
-      <h1>Todo app</h1>
-      <nav>
-        <ul>
-          <li><%= link_to 'Projects', projects_path %></li>
-        </ul>
+    <header class="row">
+      <h1 class="col-md-4">Tada! Todo List</h1>
+      <nav class="col-md-8">
+        <%= link_to "All Projects", projects_path %>
       </nav>
     </header>
 
