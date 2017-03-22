@@ -1,4 +1,6 @@
 class ProjectsController < ApplicationController
+  include ProjectNotice
+
   before_action :set_project, :except => [:index, :new, :create]
 
   def index
@@ -21,11 +23,9 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       if @project.save
         format.html { redirect_to project_path(@project),
-                      :notice => 'Project was successfully created.' }
+                      :notice => ProjectNotice::CREATE_SUCCESS }
       else
-        error_messages = @project.errors.full_messages.reduce('') do |full_message, error|
-          full_message = error + "\n"
-        end
+        error_messages = ProjectNotice.format_error_messages(@project.errors)
         flash[:error] = error_messages
         format.html { render :action => 'new' }
       end
@@ -36,7 +36,7 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       if @project.update(project_params)
         format.html { redirect_to project_path(@project),
-                      :notice => 'Project was successfully updated.' }
+                      :notice => ProjectNotice::UPDATE_SUCCESS }
       else
         format.html { render :action => 'edit' }
       end
@@ -47,15 +47,18 @@ class ProjectsController < ApplicationController
     @project.destroy
     respond_to do |format|
       format.html { redirect_to projects_path,
-                    :notice => 'Project was successfully destroyed.' }
+                    :notice => ProjectNotice::DESTROY_SUCCESS }
     end
   end
 
   def clear
-    @project.items.complete.destroy_all
+    if @project.items.complete.destroy_all.empty?
+      flash[:notice] = ProjectNotice::NO_ITEMS_TO_CLEAR 
+    else
+      flash[:notice] = ProjectNotice::ITEMS_CLEARED 
+    end
     respond_to do |format|
-      format.html { redirect_to project_path(@project),
-                    :notice => 'Completed items were successfully cleared.' }
+      format.html { redirect_to project_path(@project) }
     end
   end
 
