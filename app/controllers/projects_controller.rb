@@ -8,6 +8,16 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    @project = Project.find(params[:id])
+
+    respond_to do |format|
+      if @project.active?
+        format.html { render :action => 'show' }
+      else
+        flash[:error] = ProjectNotice::INACTIVE_PROJECT
+        format.html { redirect_to projects_path }
+      end
+    end
   end
 
   def new
