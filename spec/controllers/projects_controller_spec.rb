@@ -129,11 +129,10 @@ RSpec.describe ProjectsController, :type => :controller do
   end
 
   describe "DELETE destroy" do
-    it "destroys the requested project" do
+    it "changes the requested project to inactive" do
       project = Project.create! valid_attributes
-      expect {
-        delete :destroy, {:id => project.to_param}, valid_session
-      }.to change(Project, :count).by(-1)
+      delete :destroy, {:id => project.to_param}, valid_session
+      expect(Project.find(project).active).to be false
     end
 
     it "redirects to the projects list" do

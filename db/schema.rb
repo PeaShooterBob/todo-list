@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150220174840) do
+ActiveRecord::Schema.define(version: 20170324230105) do
 
   create_table "items", force: :cascade do |t|
-    t.string   "action"
+    t.string   "action",                     null: false
     t.integer  "project_id"
-    t.boolean  "done",       default: false
+    t.boolean  "done",       default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -24,9 +24,10 @@ ActiveRecord::Schema.define(version: 20150220174840) do
   add_index "items", ["project_id"], name: "index_items_on_project_id"
 
   create_table "projects", force: :cascade do |t|
-    t.string   "title"
+    t.string   "title",                     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "active",     default: true, null: false
   end
 
 end

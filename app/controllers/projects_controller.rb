@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
   before_action :set_project, :except => [:index, :new, :create]
 
   def index
-    @projects = Project.all
+    @projects = Project.active
   end
 
   def show
@@ -44,7 +44,7 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    @project.destroy
+    @project.update_attribute(:active, false)
     respond_to do |format|
       format.html { redirect_to projects_path,
                     :notice => ProjectNotice::DESTROY_SUCCESS }

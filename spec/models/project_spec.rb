@@ -5,7 +5,8 @@ RSpec.describe Project, :type => :model do
 
   let(:params) {
     {
-      :title => 'Some Big Project'
+      :title => 'Some Big Project',
+      :active => true
     }
   }
 
