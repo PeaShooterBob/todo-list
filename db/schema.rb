@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170324230105) do
+ActiveRecord::Schema.define(version: 20170325235415) do
 
   create_table "items", force: :cascade do |t|
     t.string   "action",                     null: false
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20170324230105) do
     t.boolean  "done",       default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "active",     default: true,  null: false
   end
 
   add_index "items", ["project_id"], name: "index_items_on_project_id"

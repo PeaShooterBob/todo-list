@@ -40,4 +40,24 @@ RSpec.describe Project, :type => :model do
       expect(duplicate_action.errors.keys).to include :title
     end
   end
+
+  describe "#active_items" do
+    it "only returns active items" do
+      subject.save
+
+      item = subject.items.create!(:action => "do the dishes")
+
+      expect(subject.active_items.first).to eq(item)
+    end
+
+    it "does not return inactive items" do
+      subject.save
+
+      item = subject.items.create!(:action => "Play Leagues",
+                                   :active => false)
+
+      expect(subject.active_items).not_to include(item)
+    end
+  end
 end
+

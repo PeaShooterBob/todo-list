@@ -62,10 +62,11 @@ class ProjectsController < ApplicationController
   end
 
   def clear
-    if @project.items.complete.destroy_all.empty?
-      flash[:notice] = ProjectNotice::NO_ITEMS_TO_CLEAR 
-    else
+    cleared_items_count = @project.items.complete.update_all(:active => false)
+    if cleared_items_count > 0
       flash[:notice] = ProjectNotice::ITEMS_CLEARED 
+    else
+      flash[:error] = ProjectNotice::NO_ITEMS_TO_CLEAR 
     end
     respond_to do |format|
       format.html { redirect_to project_path(@project) }

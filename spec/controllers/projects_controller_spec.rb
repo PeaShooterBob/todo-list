@@ -132,7 +132,7 @@ RSpec.describe ProjectsController, :type => :controller do
     it "changes the requested project to inactive" do
       project = Project.create! valid_attributes
       delete :destroy, {:id => project.to_param}, valid_session
-      expect(Project.find(project).active).to be false
+      expect(Project.find(project.id).active).to be false
     end
 
     it "redirects to the projects list" do
@@ -159,10 +159,10 @@ RSpec.describe ProjectsController, :type => :controller do
       expect(project.items.count).to eq(1)
     end
 
-    it 'destroys complete items' do
+    it 'makes complete items inactive' do
       project.items.first.update(:done => true)
       delete :clear, { :id => project.to_param }
-      expect(project.reload.items.count).to eq(0)
+      expect(project.reload.active_items.count).to eq(0)
     end
   end
 end
