@@ -1,0 +1,9 @@
+<%= form_for([@project, @item], :html => {:class => "form-inline"}) do |f| %>
+  <div class="field form-group">
+    <%= f.label :action %><br>
+    <%= f.text_field :action, :size => "80", :class => "form-control" %>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Submit', :class => 'btn btn-primary' %>
+  </div>
+<% end %>

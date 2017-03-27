@@ -6,6 +6,7 @@ class Item < ActiveRecord::Base
                      :message => 'should be unique within a project' }
   validates :project_id, :presence => true
   scope :complete, -> { where(:done => true) }
+  scope :active, -> { where(:active => true) }
 
   def project_title
     project.title

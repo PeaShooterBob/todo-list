@@ -6,6 +6,10 @@ class Project < ActiveRecord::Base
   scope :active, -> { where(:active => true) }
 
   def active_items
-    items.where(:active => true)
+    items.active
+  end
+
+  def deactivate_items
+    active_items.complete.update_all(:active => false)
   end
 end

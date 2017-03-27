@@ -11,26 +11,31 @@
       <tbody>
         <% @project.active_items.each do |item| %>
           <tr>
-            <td class=<%="#{item.done? ? 'done' : 'not-done'}"%>><%= item.action %></td>
-            <td>
-              <% unless item.done? %>
-                <%= button_to 'Done',
-                  { :controller => :items, :action => :update,
-                    :id => item.id, :project_id => @project.id,
-                    :item => { :done => true } },
-                { :method => :patch, :class => "btn btn-primary btn-sm" }
-              %>
-          <% end %>
+            <td class=<%="#{item.done? ? "done" : "not-done"}"%>><%= item.action %></td>
+            <% unless item.done? %>
+              <td>
+                <div class="button-inline">
+                  <%= button_to "Done", 
+                    project_item_path(@project, item, :item => { :done => true }),
+                    :method => :put, :class => "btn btn-primary btn-sm"
+                  %>
+                </div>
+                <div class="button-inline">
+                  <%= button_to "Edit", edit_project_item_path(@project, item),
+                    :method => :get, :class => "btn btn-sm btn-secondary" %>
+                </div>
+              </td>
+            <% end %>
           </tr>
         <% end %>
       </tbody>
     </table>
   <% end %>
   <div class="row items-buttons">
-    <%= button_to 'Clear Completed Items', clear_project_path(project),
+    <%= button_to "Clear Completed Items", clear_project_path(project),
       :method => :delete, :id => "clearer",
       :class => "btn btn-sm btn-secondary btn col-md-3" %>
-    <%= button_to 'New Item', new_project_item_path(project), 
+    <%= button_to "New Item", new_project_item_path(project), 
       :method => :get, :class => "btn btn-success btn-sm col-md-2 col-md-offset-6 new-item" %>
   </div>
 </div>

@@ -15,3 +15,8 @@ ul {
   text-decoration: line-through;
 }
 
+.button-inline {
+  margin-left: 10px;
+  display: inline-block;
+}
+

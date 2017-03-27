@@ -5,7 +5,7 @@ describe "add item to a project", :type => :feature do
 
     click_button("New Item")
     fill_in("Action", :with => "buy sunglasses")  
-    click_button("Create Item")
+    click_button("Submit")
 
     expect(page).to have_content("buy sunglasses")
   end

@@ -1,4 +1,6 @@
 class ItemsController < ApplicationController
+  include ItemNotice
+  include ErrorFormatter
   before_filter :get_project
 
   def new
@@ -11,8 +13,9 @@ class ItemsController < ApplicationController
     respond_to do |format|
       if @item.save
         format.html { redirect_to project_path(@project),
-                      :notice => 'Item was successfully created.' }
+                      :notice => ItemNotice::CREATE_SUCCESS }
       else
+        flash[:error] = ErrorFormatter.format(@item.errors)
         format.html { render :action => 'new' }
       end
     end
@@ -28,8 +31,9 @@ class ItemsController < ApplicationController
     respond_to do |format|
       if @item.update(item_params)
         format.html { redirect_to project_path(@project),
-                      :notice => 'Item was successfully updated.' }
+                      :notice => ItemNotice::UPDATE_SUCCESS }
       else
+        flash[:error] = ErrorFormatter.format(@item.errors)
         format.html { render :action => 'edit' }
       end
     end

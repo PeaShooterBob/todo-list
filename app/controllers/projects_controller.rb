@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   include ProjectNotice
-
+  include ErrorFormatter
   before_action :set_project, :except => [:index, :new, :create]
 
   def index
@@ -35,8 +35,7 @@ class ProjectsController < ApplicationController
         format.html { redirect_to project_path(@project),
                       :notice => ProjectNotice::CREATE_SUCCESS }
       else
-        error_messages = ProjectNotice.format_error_messages(@project.errors)
-        flash[:error] = error_messages
+        flash[:error] = ErrorFormatter.format(@project.errors) 
         format.html { render :action => 'new' }
       end
     end
@@ -48,6 +47,7 @@ class ProjectsController < ApplicationController
         format.html { redirect_to project_path(@project),
                       :notice => ProjectNotice::UPDATE_SUCCESS }
       else
+        flash[:error] = ErrorFormatter.format(@project.errors) 
         format.html { render :action => 'edit' }
       end
     end
@@ -62,8 +62,8 @@ class ProjectsController < ApplicationController
   end
 
   def clear
-    cleared_items_count = @project.items.complete.update_all(:active => false)
-    if cleared_items_count > 0
+    deactivated_items_count = @project.deactivate_items
+    if deactivated_items_count > 0
       flash[:notice] = ProjectNotice::ITEMS_CLEARED 
     else
       flash[:error] = ProjectNotice::NO_ITEMS_TO_CLEAR 
