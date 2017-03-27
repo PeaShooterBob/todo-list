@@ -3,7 +3,7 @@ describe "add item to a project", :type => :feature do
     project = Project.create!(:title => "Cool guy") 
     visit(project_path(project))
 
-    click_link("New Item")
+    click_button("New Item")
     fill_in("Action", :with => "buy sunglasses")  
     click_button("Create Item")
 

@@ -12,6 +12,7 @@
  *= require bootstrap
  *= require projects
  *= require main
+ *= require items 
  *= require sandstone.min
  *= require layout
  */

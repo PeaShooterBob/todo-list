@@ -1,21 +1,37 @@
-<ul>
-  <% if @project.items.empty? %>
-  <li>No items.</li>
+<div class="col-md-8" id="items-list">
+  <% if @project.active_items.empty? %>
+    <div>No items.</div>
+  <% else %>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Item Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @project.active_items.each do |item| %>
+          <tr>
+            <td class=<%="#{item.done? ? 'done' : 'not-done'}"%>><%= item.action %></td>
+            <td>
+              <% unless item.done? %>
+                <%= button_to 'Done',
+                  { :controller => :items, :action => :update,
+                    :id => item.id, :project_id => @project.id,
+                    :item => { :done => true } },
+                { :method => :patch, :class => "btn btn-primary btn-sm" }
+              %>
+          <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   <% end %>
-<% @project.active_items.each do |item| %>
-  <li class="<%= "#{item.done? ? 'done' : 'not-done'}" %>">
-    <%= link_to item.action, edit_project_item_path(@project, item) %>
-    <% unless item.done? %>
-      <%= button_to 'Done',
-            { :controller => :items, :action => :update,
-              :id => item.id, :project_id => @project.id,
-              :item => { :done => true } },
-            { :method => :patch } %>
-    <% end %>
-  </li>
-<% end %>
-</ul>
+  <div class="row items-buttons">
+    <%= button_to 'Clear Completed Items', clear_project_path(project),
+      :method => :delete, :id => "clearer",
+      :class => "btn btn-sm btn-secondary btn col-md-3" %>
+    <%= button_to 'New Item', new_project_item_path(project), 
+      :method => :get, :class => "btn btn-success btn-sm col-md-2 col-md-offset-6 new-item" %>
+  </div>
+</div>
 
-<%= link_to 'New Item', new_project_item_path(project) %>
-<%= link_to 'Clear Completed Items', clear_project_path(project),
-      :method => :delete, :id => "clearer" %>

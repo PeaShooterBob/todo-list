@@ -14,12 +14,17 @@
       <div class='col-md-3 project-name text-right'>
         <%= project.title %>
       </div>
-      <div class='col-md-1 project-button'>
+      <div class='project-button'>
         <%= button_to 'See Items', project_path(project),
           :method => :get,
           :class => 'btn btn-sm btn-primary'%>
       </div>
-      <div class='col-md-1 project-button'>
+      <div class='project-button'>
+        <%= button_to 'Edit', edit_project_path(project),
+          :method => :get,
+          :class => 'btn btn-sm btn-secondary' %>
+      </div>
+      <div class='project-button'>
         <%= button_to 'Destroy', project,
           :method => :delete, :data => { :confirm => 'Are you sure?' },
           :class => 'btn btn-sm btn-warning' %>

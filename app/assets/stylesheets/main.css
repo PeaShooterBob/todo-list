@@ -5,3 +5,13 @@ header nav {
 #main {
   margin-top: 40px;
 }
+
+ul {
+  list-style-type: none;
+}
+
+.done {
+  color: red; 
+  text-decoration: line-through;
+}
+

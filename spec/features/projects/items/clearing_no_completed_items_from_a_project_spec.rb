@@ -8,7 +8,7 @@ describe "clearing items from a project", :type => :feature do
 
     visit(project_path(project))
 
-    click_link('Clear Completed Items')
+    click_button('Clear Completed Items')
 
     expect(page).to have_content(ProjectNotice::NO_ITEMS_TO_CLEAR)
   end

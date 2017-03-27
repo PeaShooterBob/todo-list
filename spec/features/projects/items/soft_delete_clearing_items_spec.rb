@@ -9,7 +9,7 @@ describe "clearing items from a project", :type => :feature do
     visit(project_path(project))
 
     click_button('Done')
-    click_link('Clear Completed Items')
+    click_button('Clear Completed Items')
 
     expect(page).to_not have_content("Buy a roaster")
     expect(Item.find(item.id)).to_not be nil
