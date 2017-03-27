@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ItemsController, :type => :controller do
+RSpec.describe Projects::ItemsController, :type => :controller do
   let(:project) { Project.create!(:title => 'A Project') }
 
   describe "GET new" do

@@ -1,4 +1,4 @@
-class ItemsController < ApplicationController
+class Projects::ItemsController < ApplicationController
   include ItemNotice
   include ErrorFormatter
   before_filter :get_project
