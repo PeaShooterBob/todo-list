@@ -6,7 +6,7 @@ describe "soft deletes a project", :type => :feature do
     project = Project.create!(:title => "Climb K2") 
     visit(projects_path)
 
-    click_link("Destroy")   
+    click_button("Destroy")   
 
     expect(page).to_not have_content("Climb K2")
     expect(Project.find(project.id)).to_not be nil

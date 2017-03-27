@@ -1,18 +1,37 @@
-<h2>Projects</h2>
+<div class="row">
+  <h2 class="col-md-offset-2">Projects</h2>
+</div>
 
-<ul>
-  <% if @projects.empty? %>
-  <li>No projects.</li>
+<% if @projects.empty? %>
+  <div class='row'>
+    <div class='col-md-4'>
+      No project to display
+    </div>
+  </div>
+<% else %>
+  <% @projects.each do |project| %>
+    <div class='row project-row'>
+      <div class='col-md-3 project-name text-right'>
+        <%= project.title %>
+      </div>
+      <div class='col-md-1 project-button'>
+        <%= button_to 'See Items', project_path(project),
+          :method => :get,
+          :class => 'btn btn-sm btn-primary'%>
+      </div>
+      <div class='col-md-1 project-button'>
+        <%= button_to 'Destroy', project,
+          :method => :delete, :data => { :confirm => 'Are you sure?' },
+          :class => 'btn btn-sm btn-warning' %>
+      </div>
+    </div>
   <% end %>
-<% @projects.each do |project| %>
-<li>
-  <%= link_to project.title,  project_path(project) %>
-  <span>
-    <%= link_to 'Destroy', project,
-                method: :delete, data: { confirm: 'Are you sure?' } %>
-  </span>
-</li>
 <% end %>
-</ul>
 
-<%= link_to 'New Project', new_project_path %>
+<div class='row new-project-row'>
+  <div class='col-md-3 col-md-offset-7'>
+    <%= button_to 'New Project', new_project_path,
+      :method => :get,
+      :class => 'btn btn-sm btn-success'%>
+  </div>
+</div>
